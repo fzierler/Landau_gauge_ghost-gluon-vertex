@@ -1,0 +1,8 @@
+*.jld
+*.pdf
+*.h5
+*.cov
+*.mem
+*.code-workspace
+*log.txt
+*.code-workspace
