@@ -18,3 +18,6 @@ The plots are made using [Plots.jl](https://zenodo.org/record/7994271) via the [
 ## Requirements
 - julia 1.9
 - LaTeX (including PGFPlots)
+
+## Acknowledgements
+FZ has been supported in part by the Austrian Science Fund research teams grant STRONG-DM (FG1) and the STFC Grant No. ST/X000648/1.
