@@ -79,8 +79,7 @@ end
 path = "input"
 gauge_group = "SU3"
 
-
-plt = plot(title = "Correlation functions at vanishing momenta: $gauge_group",xlabel=L"N_f")
+plt = plot(title = "Correlation functions at vanishing momenta: Sp(3)",xlabel=L"N_f")
 
 Nf, M0 = vanishing_momentum_mass_function(path, gauge_group; with_vertex = false)
 plot!(plt,Nf[1:8]  ,M0[1:8]  ,markershape=:rect,linestyle=:dash,color=:black,ms=5,label=L"$M(p^2=0)$ (propagators only)")
