@@ -117,18 +117,18 @@ end
 #------------------------------------------------------------------------------
 # structures for vertex calculation
 @with_kw struct parameterGGV
-    nr::Int = 48 # needs to be a multiple of 6
+    nr::Int = 480 # needs to be a multiple of 6
     na1::Int = 25
     na2::Int = 25
-    IR::Float64 = 10^(-5)
-    UV::Float64 = 10^(15)
-    maxiter::Int = 10
-    converged::Float64  = 10^(-4)
-    sysitermax::Int = 10 # maximum # of iterations for system
-    eps_sys::Float64 = 10^-4 # convergence criterion for system
+    IR::Float64 = 10^(-8)
+    UV::Float64 = 10^(13)
+    maxiter::Int = 1
+    converged::Float64 = 10^(-4)
+    sysitermax::Int = 20 # maximum # of iterations for system
+    eps_sys::Float64 = 10^-5 # convergence criterion for system
     rel::Float64 = 1 # relaxation parameter
     # spacing of external momenta
-    Δxy::Float64   = 0.1000
+    Δxy::Float64   = 0.20
     Δcosθ::Float64 = 0.1111
     logϵ::Float64 = -7.01
     logΛ::Float64 = +8.00

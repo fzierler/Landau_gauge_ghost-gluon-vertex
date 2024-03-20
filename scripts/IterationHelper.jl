@@ -12,6 +12,11 @@ function mainPropagators(dirProp,savepath;Δg2=0,ΔNf=0,mQ=0,GIR=15,relax=1,κGl
     Nf = dataQCD["Nf"] + ΔNf
     QCD   = _load_theory(joinpath(dirProp,"theory.jld");g2,Nf,mQ)
     param = _load_propagator_parameters(joinpath(dirProp,"parameters.jld");GIR,relax,κGl,κGh)
+    nr  = max(param.nr,1000)
+    nrQ = max(param.nrQ,1000)
+    nQ  = max(param.nQ,1000)
+    nCheby = max(param.nCheby,40)
+    param  = _load_propagator_parameters(joinpath(dirProp,"parameters.jld");GIR,relax,κGl,κGh,nr,nrQ,nCheby,nQ)
     log_structure(QCD)
     log_structure(param)
     #########################################################
@@ -47,17 +52,27 @@ function mainSystem(dirsys,savepath;vertexbare=false,Δg2=0,ΔNf=0,mQ=0,GIR=15,r
     g2 = dataQCD["g2"] + Δg2
     Nf = dataQCD["Nf"] + ΔNf
     QCD = _load_theory(joinpath(dirsys,"theory.jld");g2,Nf,mQ)
-    paramYM = _load_propagator_parameters(joinpath(dirsys,"parameters.jld");GIR,relax=quarkrelax,κGl,κGh)
-    paramGGV = _load_vertex_parameters(joinpath(dirsys,"parametersGGV.jld");relax)
+    paramYM = _load_propagator_parameters(joinpath(dirsys,"parameters.jld");GIR,relax=quarkrelax,κGl,κGh,propiter=1)
+    nr  = max(paramYM.nr,1000)
+    nrQ = max(paramYM.nrQ,1000)
+    nQ  = max(paramYM.nQ,1000)
+    nCheby = max(paramYM.nCheby,40)
+    paramYM = _load_propagator_parameters(joinpath(dirsys,"parameters.jld");GIR,relax=quarkrelax,κGl,κGh,nr,nrQ,nCheby,nQ,propiter=1)
     log_structure(QCD)
     log_structure(paramYM)
-    log_structure(paramGGV)        
     #########################################################
     xQ = gausslegendre(paramYM.nQ,paramYM.ϵ/10,10*paramYM.Λ)[1]
     A0,B0,p2,coeffG0,coeffZ0 = load_hybrid(pathYM,xQ,paramYM.nCheby,paramYM.ϵ,paramYM.Λ,paramYM.µ)
     if vertexbare
+        paramGGV = parameterGGV(rel=relax,nr=240,Δxy=0.25,Δcosθ=0.222)
+        log_structure(paramGGV)        
         x, y, cosθ, GGV0 = defaultGGV(logϵ=paramGGV.logϵ,logΛ=paramGGV.logΛ,Δxy=paramGGV.Δxy,Δcosθ=paramGGV.Δcosθ)
     else
+        paramGGV = _load_vertex_parameters(joinpath(dirsys,"parametersGGV.jld");rel=relax)
+        nr  = max(paramGGV.nr,240)
+        Δxy = min(paramGGV.Δxy,0.25)
+        paramGGV = _load_vertex_parameters(joinpath(dirsys,"parametersGGV.jld");rel=relax,Δxy,nr)
+        log_structure(paramGGV)        
         x, y, cosθ, GGV0 = defaultGGV(logϵ=paramGGV.logϵ,logΛ=paramGGV.logΛ,Δxy=paramGGV.Δxy,Δcosθ=paramGGV.Δcosθ)
         x0, y0, cosθ0, GGVload = loadGGV(pathGGV)
         GGV0 = interpolateGGV(x,y,cosθ,GGVload,x0,y0,cosθ0)
@@ -130,19 +145,19 @@ function SetScaleSystem(dirsys,savepath;mQ=0,GIR=15,target=0.075,Δtarget=0.01)
 end
 function find_step_size(x;target=0.35,Δtarget=0.01)
     if x < target*0.3
-        return 0.005
+        return 0.020
     elseif x < target*0.5
-        return 0.005
+        return 0.010
     elseif x < target*0.9
-        return 0.003
+        return 0.005
     elseif x < target - Δtarget
         return 0.005
     elseif x > target*2.0
-        return -0.005
+        return -0.01
     elseif x > target*1.1
-        return -0.003
+        return -0.005
     elseif x > target + Δtarget
-        return -0.001
+        return -0.002
     end
 end
 function extrapolate_GIR(loadpath;IR=-4.5)

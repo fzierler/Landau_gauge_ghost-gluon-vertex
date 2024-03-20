@@ -8,7 +8,7 @@ using LaTeXStrings
 pathtodata = "./input"
 
 size = (400,300)
-pgfplotsx(tickfontsize=11,labelfontsize=15,legendfontsize=13,titlefontsize=15,framestyle=:box,lw=2,size=size)
+pgfplotsx(tickfontsize=11,labelfontsize=15,legendfontsize=11,titlefontsize=15,framestyle=:box,lw=2,size=size)
 pgfplotsx(color_palette=palette(:Dark2_3))
 
 function gluon_contribution(dirProp)
@@ -44,11 +44,12 @@ function plotSE!(pltR,dir;ylims,label=true)
     p2, ghost, gluon, quark, Z2, Nf, Z3 = gluon_contribution(dir)
 
     Nfquark = Nf.*quark
-    plot!(pltR,p2,-gluon./ghost,label=L"gluon $\tiny{\tilde{\Pi}_{\rm gh}}(p^2)$",color=defaultcolor(1),ls=:dash)
-    plot!(pltR,p2,-Nfquark./ghost,label=L"quark $\tiny{\tilde{\Pi}_{\rm qu}}(p^2)$",color=defaultcolor(2),ls=:dot)
-    plot!(pltR,p2,-(gluon .+ Nfquark )./ghost,label=L"$\tiny{\tilde{\Pi}_{\rm gh}}(p^2) + \tiny{\tilde{\Pi}_{\rm qu}}(p^2)$",color=defaultcolor(3))
+    plot!(pltR,p2,-gluon./ghost,label=L"$+\tiny{\tilde{\Pi}_{\rm gluon}}(p^2)$",color=defaultcolor(1),ls=:dash)
+    plot!(pltR,p2,ghost./ghost,label=L"$-\tiny{\tilde{\Pi}_{\rm ghost}}(p^2) \equiv 1$",color=:black,ls=:black,lw=1)
+    plot!(pltR,p2,-Nfquark./ghost,label=L" $+\tiny{\tilde{\Pi}_{\rm quark}}(p^2)$",color=defaultcolor(2),ls=:dot)
+    plot!(pltR,p2,-(gluon .+ Nfquark )./ghost,label=L"$\tiny{\tilde{\Pi}_{\rm gluon}}(p^2) + \tiny{\tilde{\Pi}_{\rm quark}}(p^2)$",color=defaultcolor(3))
 
-    plot!(pltR,xscale=:log10)
+    plot!(pltR,xscale=:log10,legend_columns=2,legendfonthalign=:left)
     plot!(pltR,yticks=min(ylims...):0.2:max(ylims...))
 
     ylims!(pltR,ylims)
@@ -69,7 +70,7 @@ end
 
 dir2 = joinpath(pathtodata,"SU3","Nf=0.1","prop")
 dir3 = joinpath(pathtodata,"SU3","Nf=0.8","prop")
-dir4 = joinpath(pathtodata,"SU3","Nf=1","prop")
+dir4 = joinpath(pathtodata,"SU3","Nf=1.0","prop")
 
 plt2 = plotSE(dir2;ylims=(-0.4,1.4))
 plt3 = plotSE(dir3;ylims=(-0.4,1.4))

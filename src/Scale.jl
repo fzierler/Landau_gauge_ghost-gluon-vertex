@@ -19,7 +19,6 @@ function pion_decay(p20::Array{Float64,1},A0::Array{Float64,1},B0::Array{Float64
     perm = sortperm(p2)
     p2, A ,B =permute!(p2,perm), permute!(A,perm), permute!(B,perm)
     n = length(p2)
-    # TODO Casimir
     prefactor = Nc*Z2/(4*pi^2)
     M = B ./ A
     derivM = Deriv(p2,M)

@@ -26,8 +26,8 @@ pltGGV2 = plot(legend=:topright,title=L"Vanishing ghost momentum: $A(p^2,0,$cos$
 pltGGV3 = plot(legend=:topright,title=L"Vanishing gluon momentum: $A(0,p^2,$cos$\theta)$",xlabel=xlab,bottom_margin=8mm)
 
 pgfplotsx(color_palette=reverse(palette(:Paired_6)))
-for Nf in [0,2,5], type in ["vertex","prop"]
-    if Nf == 5
+for Nf in ["0.0","2.0","5.0"], type in ["vertex","prop"]
+    if Int(parse(Float64,Nf)) == 5
         type = type*"_scaling"
     end
     qcd = load(joinpath(pathtodata,"SU3","Nf=$Nf",type,"theory.jld"))
@@ -59,8 +59,8 @@ pltPROP = plot(plt1, plt2, plt6, plt3, layout = l,  size=(size[1],4*size[2]))
 savefig(pltPROP,"plots/figure2_props.pdf")
 
 pgfplotsx(color_palette=palette(:Dark2_3))
-for (j,Nf) in enumerate([0,2,5])
-    type = Nf == 5 ? "vertex_scaling" : "vertex"
+for (j,Nf) in enumerate(["0.0","2.0","5.0"])
+    type = Int(parse(Float64,Nf)) == 5 ? "vertex_scaling" : "vertex"
     ggvpath = joinpath(pathtodata,"SU3","Nf=$Nf",type,"GGV.jld")
     x,y,cosθ,GGV = loadGGV(ggvpath)
     θindex = findmin(abs.(cosθ.-1/2))[2]

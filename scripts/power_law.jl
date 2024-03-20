@@ -5,8 +5,7 @@ using JLD
 using Plots; gr()
 include("IterationHelper.jl")
 
-pathtodata = "/home/fabian/Documents/daten/UnquenchingQCD"
-pathtodata = "/home/fabian/Dokumente/daten/UnquenchingQCD"
+pathtodata = "./input"
 
 function estimate_ρ(loadpath)
     GIR, ρ1, ρ2, plt = extrapolate_GIR(loadpath,IR=-4.75)

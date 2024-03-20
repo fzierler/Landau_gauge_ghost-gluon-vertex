@@ -2,12 +2,10 @@ using Pkg; Pkg.activate(".")
 using UnquenchingQCD
 using Plots
 gr()
-pathtodata = "/home/zierler_fabian/Documents/daten/UnquenchingQCD"
-pathtodata = "/home/fabian/Documents/daten/UnquenchingQCD"
-pathtodata = "/home/fabian/Dokumente/daten/UnquenchingQCD"
+pathtodata = "./input"
 
 pathsSUN = [joinpath("SU$(N)") for N in 2:5 ]
-pathsSON = [joinpath("SO$(N)") for N in 4:9]
+pathsSON = [joinpath("SO$(N)") for N in 6:9]
 pathsSpN = [joinpath("Sp$(N)") for N in 4:2:8]
 
 paths_all = [pathsSUN,pathsSON,pathsSpN]
