@@ -6,8 +6,8 @@ using Parameters
 using LaTeXStrings
 using Measures 
 
-size=(600,400)
-pgfplotsx(tickfontsize=14,labelfontsize=16,legendfontsize=15,titlefontsize=20,framestyle=:box,lw=3,size=size)
+pltsize=(600,400)
+pgfplotsx(tickfontsize=14,labelfontsize=16,legendfontsize=15,titlefontsize=20,framestyle=:box,lw=3,size=pltsize)
 
 pathtodata = "./input"
 isdir("plots") || mkdir("plots")
@@ -55,7 +55,7 @@ for plt in [plt1,plt2,plt3,plt4,plt5,plt6]
 end
 
 l = @layout [a; b; c; d]
-pltPROP = plot(plt1, plt2, plt6, plt3, layout = l,  size=(size[1],4*size[2]))
+pltPROP = plot(plt1, plt2, plt6, plt3, layout = l,  size=(pltsize[1],4*pltsize[2]))
 savefig(pltPROP,"plots/figure2_props.pdf")
 
 pgfplotsx(color_palette=palette(:Dark2_3))
@@ -83,7 +83,7 @@ for plt in [pltGGV1,pltGGV2,pltGGV3]
 end
 
 l = @layout [a; b; c]
-pltGGV = plot(pltGGV1, pltGGV2, pltGGV3, layout = l, size=(size[1],3*size[2]))
+pltGGV = plot(pltGGV1, pltGGV2, pltGGV3, layout = l, size=(pltsize[1],3*pltsize[2]))
 savefig(pltGGV,"plots/figure3_vertex.pdf")
 pltPROP
 pltGGV

@@ -7,8 +7,8 @@ using LaTeXStrings
 
 pathtodata = "./input"
 
-size = (400,300)
-pgfplotsx(tickfontsize=11,labelfontsize=15,legendfontsize=11,titlefontsize=15,framestyle=:box,lw=2,size=size)
+pltsize = (400,300)
+pgfplotsx(tickfontsize=11,labelfontsize=15,legendfontsize=11,titlefontsize=15,framestyle=:box,lw=2,size=pltsize)
 pgfplotsx(color_palette=palette(:Dark2_3))
 
 function gluon_contribution(dirProp)
@@ -81,5 +81,5 @@ plot!(plt3,legend=:left,xlabel=L"$p^2$ [GeV$^2$]",minorgrid=true)
 plot!(plt4,legend=:left,xlabel=L"$p^2$ [GeV$^2$]",minorgrid=true)
 
 l = @layout [a; b; c]
-plt = plot(plt2, plt3, plt4, layout = l, size=(size[1],3*size[2]))
+plt = plot(plt2, plt3, plt4, layout = l, size=(pltsize[1],3*pltsize[2]))
 savefig(plt,"plots/figure4_gluon_self_energy.pdf")

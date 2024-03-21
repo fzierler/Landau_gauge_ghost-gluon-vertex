@@ -82,11 +82,11 @@ gauge_group = "SU3"
 plt = plot(title = "Correlation functions at vanishing momenta: Sp(3)",xlabel=L"N_f")
 
 Nf, M0 = vanishing_momentum_mass_function(path, gauge_group; with_vertex = false)
-plot!(plt,Nf[1:8]  ,M0[1:8]  ,markershape=:rect,linestyle=:dash,color=:black,ms=5,label=L"$M(p^2=0)$ (propagators only)")
+plot!(plt,Nf[1:8]  ,M0[1:8]  ,markershape=:rect,linestyle=:dash,color=:black,ms=5,label=L"$M_f(p^2=0)$ (propagators only)")
 plot!(plt,Nf[9:end],M0[9:end],markershape=:rect,linestyle=:dash,color=:black,ms=5,label="")
 
 Nf, M0 = vanishing_momentum_mass_function(path, gauge_group)
-plot!(plt,Nf[1:8]  ,M0[1:8]  ,markershape=:circle,color=:green,ms=5,label=L"$M(p^2=0)$ (dynamic vertex)")
+plot!(plt,Nf[1:8]  ,M0[1:8]  ,markershape=:circle,color=:green,ms=5,label=L"$M_f(p^2=0)$ (dynamic vertex)")
 plot!(plt,Nf[9:end],M0[9:end],markershape=:circle,color=:green,ms=5,label="")
 
 plot!(plt,ylims=(-0.05,0.5),legend=:topright)

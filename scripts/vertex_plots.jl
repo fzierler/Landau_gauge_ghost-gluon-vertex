@@ -68,7 +68,6 @@ groups = ["SO","SO","SO"]
 Ncs = [8,8,8]
 Nfs = ["0.0","2.0","5.68"]
 plt1, plt2, plt3 = plot_vertex_1d(pathtodata,groups,Ncs,Nfs)
-display(plt1)
 savefig(plt1,"plots/vertex_SO8_Nf_dependence.pdf")
 
 groups = ["SU","Sp","SO"]
